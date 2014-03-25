@@ -7,7 +7,6 @@ public abstract class JXploreView extends JPanel {
 	
 	protected JXplorer data;
 
-
 	public JXploreView(LayoutManager layout) {
 		super(layout);
 	}

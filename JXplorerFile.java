@@ -1,13 +1,19 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 
 import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
+import javax.swing.tree.TreeNode;
 
 // FIXME de TreeNode interface moet nog worden ge�mplementeerd. samen met caching en lazy loading
-public class JXplorerFile {
+public class JXplorerFile implements TreeNode {
 	private File file;
+	
+	private String name;
+	
+	private boolean hiddenIcon;
 
 	/**
 	 * 
@@ -16,6 +22,8 @@ public class JXplorerFile {
 	 */
 	public JXplorerFile(File file) {
 		this.file = file;
+		this.name = null;
+		this.hiddenIcon = false;
 	}
 
 	/**
@@ -39,7 +47,11 @@ public class JXplorerFile {
 	 * @return The name of the current file
 	 */
 	public String getName() {
-		return FileSystemView.getFileSystemView().getSystemDisplayName(file);
+		if (this.name == null) {
+			return FileSystemView.getFileSystemView().getSystemDisplayName(file);
+		} else {
+			return this.name;
+		}
 	}
 
 	/**
@@ -50,8 +62,22 @@ public class JXplorerFile {
 		return file.getPath();
 	}
 
+	/**
+	 * 
+	 * @return The icon if available and hiddenIcon is false
+	 */
 	public Icon getIcon() {
+		if (hiddenIcon) return null;
+		
 		return FileSystemView.getFileSystemView().getSystemIcon(this.file);
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setHiddenIcon(boolean hidden) {
+		this.hiddenIcon = hidden;
 	}
 
 	/**
@@ -60,6 +86,22 @@ public class JXplorerFile {
 	 */
 	public File getFile() {
 		return this.file;
+	}
+	
+	/**
+	 * 
+	 * @return The parent of the file
+	 */
+	public JXplorerFile getParentDir() {
+		return new JXplorerFile(FileSystemView.getFileSystemView().getParentDirectory(this.file));
+	}
+	
+	
+	/**
+	 * Returns true if current file is a folder
+	 */
+	public boolean isFolder() {
+		return this.file.isDirectory();
 	}
 	
 	/**
@@ -121,5 +163,58 @@ public class JXplorerFile {
 	@Override
 	public String toString() {
 		return this.getName();
+	}
+
+	@Override
+	public Enumeration<?> children() {
+		return new Enumeration<JXplorerFile>() {
+			int index = 0;
+
+			@Override
+			public boolean hasMoreElements() {
+				return index < getSubFolders().length;
+			}
+
+			@Override
+			public JXplorerFile nextElement() {
+				return getSubFolders()[index++];
+			}
+		};
+	}
+
+	@Override
+	public boolean getAllowsChildren() {
+		return isFolder();
+	}
+
+	@Override
+	public TreeNode getChildAt(int childIndex) {
+		return getSubFolders()[childIndex];
+	}
+
+	@Override
+	public int getChildCount() {
+		return getSubFolders().length;
+	}
+
+	@Override
+	public int getIndex(TreeNode node) {
+		JXplorerFile[] folders = getSubFolders();
+		for (int n=0; n<folders.length; n++) 
+			if (folders[n].equals(node))
+				return n;
+		return -1; // folder not found
+	}
+
+	@Override
+	public TreeNode getParent() {
+		if (file.getParentFile() == null)
+			return null;
+		return new JXplorerFile(file.getParentFile());
+	}
+
+	@Override
+	public boolean isLeaf() {
+		return false;
 	}
 }

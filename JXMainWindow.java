@@ -20,11 +20,13 @@ public class JXMainWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(JXplorer app) {
-		JXAdressView adressView = new JXAdressView();
+		JXAdressView adressView = new JXAdressView(app.getCurrentFile());
 		JXListView fileListView = new JXListView(app.getCurrentFile());
+		JXTreeView treeView = new JXTreeView(app.getCurrentFile());
 		
 		adressView.setData(app);
 		fileListView.setData(app);
+		treeView.setData(app);
 
 		setFrame(new JFrame());
 		getFrame().setBounds(100, 100, 450, 300);
@@ -35,8 +37,9 @@ public class JXMainWindow {
 		JSplitPane splitPane = new JSplitPane();
 		getFrame().getContentPane().add(splitPane, BorderLayout.CENTER);
 		
-		fileListView.buildGUI();
 		splitPane.setRightComponent(fileListView);
+		
+		splitPane.setLeftComponent(treeView);
 		
 		JLabel lblplaceholder = new JLabel("[placeholder]");
 		getFrame().getContentPane().add(lblplaceholder, BorderLayout.SOUTH);

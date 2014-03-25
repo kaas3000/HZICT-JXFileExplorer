@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 public class JXAdressView extends JXploreView implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
+	private JXplorerFile file;
+	
 	private JLabel adressLabel;
 	private JTextField adressTextField;
 	private JButton goButton;
@@ -19,8 +21,10 @@ public class JXAdressView extends JXploreView implements ActionListener {
 	/**
 	 * Create the adressView, create all GUI elements, and add them
 	 */
-	public JXAdressView() {
+	public JXAdressView(JXplorerFile file) {
 		super(new BorderLayout(10, 10));
+		
+		this.file = file;
 		
 		buildGUI();
 	}
@@ -34,7 +38,7 @@ public class JXAdressView extends JXploreView implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		this.data.setFile(adressTextField.getText());
+		this.data.setFile(this.adressTextField.getText());
 	}
 
 	@Override
@@ -44,6 +48,8 @@ public class JXAdressView extends JXploreView implements ActionListener {
 		this.goButton = new JButton("go");
 		this.goButton.addActionListener(this);
 		
+		this.adressTextField.setText(this.file.getPath());
+		
 		this.add(adressLabel, BorderLayout.LINE_START);
 		this.add(adressTextField, BorderLayout.CENTER);
 		this.add(goButton, BorderLayout.LINE_END);
@@ -51,6 +57,7 @@ public class JXAdressView extends JXploreView implements ActionListener {
 
 	@Override
 	public void updateView() {
-		setAdressTextField(this.data.getCurrentFile().getPath());
+		this.file = this.data.getCurrentFile();
+		setAdressTextField(this.file.getPath());
 	}
 }

@@ -14,10 +14,10 @@ public class JXListView extends JXploreView implements MouseListener {
 
 	private DefaultListModel<JXplorerFile> listModel;
 	private JList<JXplorerFile> fileList;
-
-	/**s
-	 * 
-	 * @param file The file or folder that is currently opened
+	
+	/**
+	 * Create a {@link JXListView} object using the given file 
+	 * @param file The file or folder to be displayed
 	 */
 	public JXListView(JXplorerFile file) {
 		super(new BorderLayout());
@@ -49,6 +49,14 @@ public class JXListView extends JXploreView implements MouseListener {
 		this.listModel = new DefaultListModel<JXplorerFile>();
 		
 		// fill the listModel
+		// begin with the parent directory
+		if (this.file.getParentDir().getName() != null) {
+			JXplorerFile tempFile = this.file.getParentDir();
+			tempFile.setName("..");
+			tempFile.setHiddenIcon(true);
+			this.listModel.addElement(tempFile);
+		}
+		// begin to fill with the actual content
 		for (JXplorerFile child : this.file.getChildren()) {
 			this.listModel.addElement(child);
 		}
@@ -81,7 +89,6 @@ public class JXListView extends JXploreView implements MouseListener {
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		if (arg0.getClickCount() == 2) {
-			System.out.println("yolo");
 			this.data.setFile(this.fileList.getSelectedValue());
 		}
 	}

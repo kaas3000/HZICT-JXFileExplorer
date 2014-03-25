@@ -4,8 +4,6 @@ import java.util.ArrayList;
  * @author meli0018
  * 
  * FIXME: Ontbreekt: TreeView en StatusView
- * FIXME: ListView (en TreeView natuurlijk) laat geen icon zien
- * FIXME: AddressView laat het pad niet correct zien
  * TODO: Dubbelklikken op een bestand in ListView resulteert in een NullPointerException
  * FIXME: nog geen ontwerpdocument ingeleverd op Moodle
  */
@@ -73,7 +71,7 @@ class JXplorer {
 	}
 	
 	public void printSubFolders(JXplorerFile file) {
-		System.out.println(""); // TODO
+		System.out.println(file.getSubFolders());
 	}
 
 	/**
@@ -85,13 +83,11 @@ class JXplorer {
 		
 		JXMainWindow window = new JXMainWindow(app);
 		window.getFrame().setVisible(true);
-		// TODO Finish method
 	}
 	
 	/**
 	 * Update every view (e.g. when a new adress is entered)
 	 */
-	// FIXME Deze methode pulic zorgt voor onnodige afhankelijkheid naar andere klassen. Deze klasse kan dat prima zelf oplossen
 	private void updateViews() {
 		for (JXploreView view : JXViews) {
 			view.updateView();
