@@ -26,16 +26,19 @@ svn:special svn:externals svn:needs-lock
 
 f60c4c83-746c-499c-8fc6-5fd4841f79a3
 
+.git
+dir
+
 JXAdressView.java
 file
+866
 
 
 
-
-2014-03-17T10:19:06.000000Z
-c854c0741428638d49281a53bb20871e
-2014-03-17T10:30:58.078858Z
-689
+2014-04-01T09:50:33.000000Z
+dee132f5d4657cac0914d3a1e3c61a90
+2014-04-01T10:19:06.197912Z
+866
 meli0018
 has-props
 
@@ -58,19 +61,43 @@ has-props
 
 
 
-1351
+2030
 
 JXFileListView.java
 file
+866
 
 
 
-delete
-2014-03-24T11:28:28.000000Z
-d9483dbf3da255de34fbd71f7851dfdd
-2014-03-24T10:28:23.713541Z
-754
-waar0003
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+deleted
+
+JXListCellRenderer.java
+file
+866
+
+
+
+2014-04-01T09:50:37.000000Z
+792cbd6b4c6e9269a26cfce9daff9606
+2014-04-01T10:19:06.197912Z
+866
+meli0018
 has-props
 
 
@@ -92,42 +119,53 @@ has-props
 
 
 
-2231
+820
 
 JXListView.java
 file
+866
 
 
 
-add
-
-
-
-
-
+2014-04-01T09:50:44.000000Z
+e83ddb242a91fbe209780a8c074c6361
+2014-04-01T10:19:06.197912Z
+866
+meli0018
 has-props
-has-prop-mods
 
 
 
 
 
 
-copied
-https://46.105.120.168/svn/HBOICT2013/meli0018/nl.hz.bict.meli0018.jxplorer/trunk/src/JXFileListView.java
-761
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2736
 
 JXMainWindow.java
 file
+866
 
 
 
-
-2014-03-24T11:28:28.000000Z
-db9dcf6abd736e97348888e9b1f04f33
-2014-03-24T10:28:23.713541Z
-754
-waar0003
+2014-04-01T09:52:07.000000Z
+22cdc7cff257f1fe46f0c4da49a2f804
+2014-04-01T10:19:06.197912Z
+866
+meli0018
 has-props
 
 
@@ -149,20 +187,79 @@ has-props
 
 
 
-1242
+2150
+
+JXStatusView.java
+file
+866
+
+
+
+2014-04-01T10:05:35.000000Z
+6bfd768c1ab7676845be1a1ad74ecfe7
+2014-04-01T10:19:06.197912Z
+866
+meli0018
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1269
+
+JXTreeView.java
+file
+866
+
+
+
+2014-04-01T10:23:24.000000Z
+e97109872abe1acf2b3c6c5eb6d6cbff
+2014-04-01T10:19:06.197912Z
+866
+meli0018
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1721
 
 JXView.java
 file
-
-
-
-delete
-2014-03-24T11:28:28.000000Z
-9f00be3a1fb0d3af1e75e64d033047ab
-2014-03-24T10:28:23.713541Z
-754
-waar0003
-has-props
+866
 
 
 
@@ -182,43 +279,53 @@ has-props
 
 
 
-
-688
+deleted
 
 JXploreView.java
 file
+866
 
 
 
-add
-
-
-
-
-
+2014-04-01T10:05:39.000000Z
+b76045f1a5d489a95ef1d7cd0bec6c00
+2014-04-01T10:19:06.197912Z
+866
+meli0018
 has-props
-has-prop-mods
 
 
 
 
 
 
-copied
-https://46.105.120.168/svn/HBOICT2013/meli0018/nl.hz.bict.meli0018.jxplorer/trunk/src/JXView.java
-761
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+675
 
 JXplorer.java
 file
+866
 
 
 
-
-2014-03-24T11:28:28.000000Z
-a48750bbcbb97be5aedb77eb05a64633
-2014-03-24T10:28:23.713541Z
-754
-waar0003
+2014-04-01T09:52:40.000000Z
+e1360d292fbf906805c31c74ca8a2c32
+2014-04-01T10:19:06.197912Z
+866
+meli0018
 has-props
 
 
@@ -240,19 +347,19 @@ has-props
 
 
 
-1952
+1959
 
 JXplorerFile.java
 file
+866
 
 
 
-
-2014-03-24T11:28:28.000000Z
-3f8168b5e9c9a1d2adba81f4daff3ab9
-2014-03-24T10:28:23.713541Z
-754
-waar0003
+2014-04-01T10:05:43.000000Z
+e042cc80f9b5aeab01e5677ea44db221
+2014-04-01T10:19:06.197912Z
+866
+meli0018
 has-props
 
 
@@ -274,18 +381,18 @@ has-props
 
 
 
-2620
+5589
 
 class-diagram.ucls
 file
+866
 
 
 
-
-2014-03-17T10:13:31.000000Z
-dbc41ae6fda428ce7d016d38bb1529ad
-2014-03-17T10:30:58.078858Z
-689
+2014-04-01T09:00:32.000000Z
+5c9528b0c540db0e59ea749985ef4099
+2014-04-01T10:19:06.197912Z
+866
 meli0018
 
 
@@ -308,5 +415,5 @@ meli0018
 
 
 
-5744
+3548
 

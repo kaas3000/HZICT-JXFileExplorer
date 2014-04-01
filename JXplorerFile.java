@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -7,12 +9,11 @@ import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.TreeNode;
 
-// FIXME de TreeNode interface moet nog worden ge�mplementeerd. samen met caching en lazy loading
 public class JXplorerFile implements TreeNode {
 	private File file;
-	
+
 	private String name;
-	
+
 	private boolean hiddenIcon;
 
 	/**
@@ -48,7 +49,8 @@ public class JXplorerFile implements TreeNode {
 	 */
 	public String getName() {
 		if (this.name == null) {
-			return FileSystemView.getFileSystemView().getSystemDisplayName(file);
+			return FileSystemView.getFileSystemView()
+					.getSystemDisplayName(file);
 		} else {
 			return this.name;
 		}
@@ -64,18 +66,33 @@ public class JXplorerFile implements TreeNode {
 
 	/**
 	 * 
-	 * @return The icon if available and hiddenIcon is false
+	 * @return The icon only when it is available and hiddenIcon is false
 	 */
 	public Icon getIcon() {
-		if (hiddenIcon) return null;
-		
-		return FileSystemView.getFileSystemView().getSystemIcon(this.file);
+		if (hiddenIcon) {
+			return null;
+		} else {
+			return FileSystemView.getFileSystemView().getSystemIcon(this.file);
+		}
 	}
-	
+
+	/**
+	 * Make the file show up with a different name (only in this application).
+	 * 
+	 * @param name
+	 *            The name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	/**
+	 * When hiddenIcon is set to true, the application behaves like the file
+	 * doesn't have an icon
+	 * 
+	 * @param hidden
+	 *            Set true to hide icon
+	 */
 	public void setHiddenIcon(boolean hidden) {
 		this.hiddenIcon = hidden;
 	}
@@ -87,23 +104,65 @@ public class JXplorerFile implements TreeNode {
 	public File getFile() {
 		return this.file;
 	}
-	
+
 	/**
 	 * 
 	 * @return The parent of the file
 	 */
 	public JXplorerFile getParentDir() {
-		return new JXplorerFile(FileSystemView.getFileSystemView().getParentDirectory(this.file));
+		return new JXplorerFile(FileSystemView.getFileSystemView()
+				.getParentDirectory(this.file));
 	}
-	
-	
+
 	/**
-	 * Returns true if current file is a folder
+	 * 
+	 * @return The mime type of the file e.g. text/html
+	 */
+	public String getContentType() {
+		String contentType = new String();
+
+		// error handling, in case this.file does not exist
+		try {
+			contentType = Files.probeContentType(this.file.toPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return contentType;
+	}
+
+	/**
+	 * @return True if current file is a folder
 	 */
 	public boolean isFolder() {
 		return this.file.isDirectory();
 	}
-	
+
+	/**
+	 * 
+	 * @return The size of the file in bytes
+	 */
+	public long getSize() {
+		return this.file.length();
+	}
+
+	/**
+	 * This function is used to display some details about the file
+	 * 
+	 * @return Information A preformatted string with the name, the location,
+	 *         the type and the size of the file
+	 */
+	public String getDetails() {
+		String details = new String();
+
+		details += "Name: " + this.file.getName();
+		details += "\nLocation: " + getPath();
+		details += "\nType: " + getContentType();
+		details += "\nSize: " + getSize() + " bytes";
+
+		return details;
+	}
+
 	/**
 	 * 
 	 * @return an array with every file (including folders) as JXplorerFile
@@ -151,7 +210,7 @@ public class JXplorerFile implements TreeNode {
 	public JXplorerFile[] getSubFolders() {
 		return getFolderContent("folders");
 	}
-	
+
 	/**
 	 * 
 	 * @return An array with the files and folders within the given directory
@@ -159,7 +218,7 @@ public class JXplorerFile implements TreeNode {
 	public JXplorerFile[] getChildren() {
 		return getFolderContent("all");
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.getName();
@@ -200,7 +259,7 @@ public class JXplorerFile implements TreeNode {
 	@Override
 	public int getIndex(TreeNode node) {
 		JXplorerFile[] folders = getSubFolders();
-		for (int n=0; n<folders.length; n++) 
+		for (int n = 0; n < folders.length; n++)
 			if (folders[n].equals(node))
 				return n;
 		return -1; // folder not found
